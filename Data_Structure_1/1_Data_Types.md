@@ -10,7 +10,7 @@ Entenda variáveis, tipos primitivos (inteiros, floats, booleanos, etc.) e como 
 
 Exemplo dos dados primitivos no Java:
 
-![Untitled](1%20-%20Tipos%20de%20dados%20ec1de24c591347919d37ee5bda89bf5d/Untitled.png)
+![DataTypes](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_DataTypes_DadosPrimitivosJava.png?raw=true)
 
 ### Exemplos de uso:
 
@@ -70,11 +70,11 @@ Uma classe invólucro permite converter um tipo primitivo em um objeto, fornecen
 
 Vejamos que neste primeiro caso, por se tratar de um dado primitivo, não temos acesso a nenhuma função para manipular este valor:
 
-![Untitled](1%20-%20Tipos%20de%20dados%20ec1de24c591347919d37ee5bda89bf5d/Untitled%201.png)
+![Example](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_DataTypes_JavaExemplo1.png?raw=true)
 
 Agora no segundo caso, estamos usando uma classe invólucro e não se trata mais de apenas um byte, mas um objeto de byte, podendo ser manipulado:
 
-![Untitled](1%20-%20Tipos%20de%20dados%20ec1de24c591347919d37ee5bda89bf5d/Untitled%202.png)
+![Example](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_DataTypes_JavaExemplo2.png?raw=true)
 
 ### Observações:
 
