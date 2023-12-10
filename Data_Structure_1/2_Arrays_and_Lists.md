@@ -26,11 +26,11 @@ Por razões de segurança, em Java não se pode acessar ou atribuir valores de u
 
 Em Java:
 
-![Untitled](2%20-%20Array%20e%20Listas%20923745569b0b46e7bdba8b7dffbf957f/Untitled.png)
+![Example1](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_ArraysAndLists_Exemplo1.png?raw=true)
 
 Em C:
 
-![Untitled](2%20-%20Array%20e%20Listas%20923745569b0b46e7bdba8b7dffbf957f/Untitled%201.png)
+![Example2](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_ArraysAndLists_Exemplo2.png?raw=true)
 
 ### Outras formas de definir um `array` em Java:
 
@@ -56,7 +56,7 @@ System.out.println(vetor3);
 
 Retorna:
 
-![Untitled](2%20-%20Array%20e%20Listas%20923745569b0b46e7bdba8b7dffbf957f/Untitled%202.png)
+![Example3](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_ArraysAndLists_Exemplo3.png?raw=true)
 
 Exemplo em C:
 
@@ -83,7 +83,7 @@ for (i=0; i<vetor1.length; i++){
 }
 ```
 
-Caso tente acessar diretamente os valores do `array` usando `System.*out*.println(vetor1);`, retornará apenas a referência da classe do `array` com o hash hexadecimal e a referência ao tipo do `array` no formato `[I@15aeb7ab`. “I” significando que pertence a um `array` de inteiros, seguido do seu endereço na memória.
+Caso tente acessar diretamente os valores do `array` usando `System.out.println(vetor1);`, retornará apenas a referência da classe do `array` com o hash hexadecimal e a referência ao tipo do `array` no formato `[I@15aeb7ab`. “I” significando que pertence a um `array` de inteiros, seguido do seu endereço na memória.
 
 O mesmo não ocorre se o `array` for criado com uma classe invólucro, pois desta forma estamos imprimindo o próprio objeto e retorna os valores normalmente.
 
@@ -132,7 +132,7 @@ Aqui estamos definindo uma matriz 3x3 e atribuindo manualmente os valores de cad
 
 Resultado:
 
-![Untitled](2%20-%20Array%20e%20Listas%20923745569b0b46e7bdba8b7dffbf957f/Untitled%203.png)
+![Example4](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_ArraysAndLists_Exemplo4.png?raw=true)
 
 Assim como um vetor, podemos criar uma lista de inicialização:
 
@@ -157,7 +157,7 @@ for(int i = 0; i < 3; i++){
 
 Resultado:
 
-![Untitled](2%20-%20Array%20e%20Listas%20923745569b0b46e7bdba8b7dffbf957f/Untitled%204.png)
+![Example5](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_ArraysAndLists_Exemplo5.png?raw=true)
 
 Vejamos que com o uso de matrizes, os laços de repetição são bem úteis, pois é inviável atribuir ou buscar os elementos manualmente quando a matriz tem muitos elementos.
 
@@ -179,7 +179,7 @@ for(int i = 0; i < 3; i++){
 
 Resultado:
 
-![Untitled](2%20-%20Array%20e%20Listas%20923745569b0b46e7bdba8b7dffbf957f/Untitled%205.png)
+![Example6](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_ArraysAndLists_Exemplo6.png?raw=true)
 
 Estes exemplos também podem ser recriados usando classes invólucros:
 
@@ -201,3 +201,111 @@ for (i = 0; i < matriz.length; i++) {
 A forma como nós (humanos) enxergamos uma matriz é diferente de como um computador “enxerga”. Nós temos o conceito de linhas e colunas, porém a máquina interpreta as linhas como diferentes vetores, ou seja, cada linha é um vetor e as “colunas” são definidas pelos elementos das “linhas”.
 
 Como no exemplo acima, para contar a quantidade de “linhas”, está apenas contando a quantidade de vetores que há dentro de matriz por meio de `length`. E as colunas definidas pelas quantidade de elementos de cada “linha” por meio de `[i].length`. Ou seja, 3 vetores (3 linhas) com 3 elementos cada linha, logo 3 colunas.
+
+### Exercícios de fixação
+
+A seguir temos dois exercícios propostos que utilizam os exemplos passados até agora.
+
+**Exercício 1:**  criar um novo vetor, inicializar ele com quaisquer valores e criar um algoritmo que encontre o maior elemento dentro deste vetor.
+
+```java
+public static void maiorElemento(){
+  byte max = 0;
+  byte[] vetor = {4, 5, 10, 5, 20, 3, 10};
+
+  for(byte i = 0; i < vetor.length; i++){
+      if(vetor[i] > max){
+          max = vetor[i];
+      }
+  }
+
+  System.out.println("Maior elemento do seu vetor: ");
+  System.out.println(max);
+}
+```
+
+![Example7](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_ArraysAndLists_Exemplo6.png?raw=true)
+
+**Exercício 2:** Desenvolva um algoritmo que preencha uma matriz numérica de dimensões 3x3. Após preencher toda a matriz, o usuário deve inserir uma chave de busca X.
+Caso exista algum número igual a X dentro da matriz, o algoritmo deve mostrar na tela, os índices da linha e da coluna da posição na qual X foi encontrado pela primeira vez. Caso contrário, o algoritmo deve se encerrar com uma única mensagem, dizendo "chave não encontrada".
+
+```java
+public static void procuraNaMatriz(){
+  byte[][] matriz = new byte[3][3];
+  byte i, j, x = 0, row = 0, col = 0;
+  byte found = 0;
+  Scanner scanner = new Scanner(System.in);
+
+  for (i = 0; i < matriz.length; i++) {
+      for (j = 0; j < matriz[i].length; j++) {
+          System.out.println("Digite o valor da linha " + i + " e coluna " + j);
+          if(scanner != null) {
+              matriz[i][j] = scanner.nextByte();
+          }
+      }
+  }
+
+  System.out.println("Digite o valor da chave que deseja encontrar na matriz: ");
+  if(scanner != null) {
+      x = scanner.nextByte();
+  }
+
+  for (i = 0; i < matriz.length; i++) {
+      for (j = 0; j < matriz[i].length; j++) {
+          if (matriz[i][j] == x) {
+              row = i;
+              col = j;
+              found = 1;
+              break;
+          }
+      }
+      System.out.println();
+  }
+
+  if(found == 1){
+      System.out.println("Chave encontrado na linha " + row + " e coluna " + col);
+  } else {
+      System.out.println("Chave nao encontrado na matriz.");
+  }
+}
+```
+
+A mesma resolução em C:
+
+```c
+#include <stdio.h>
+
+int main(void) {
+  int mat[3][3];
+  int i, j, x, row, col, found = 0;
+
+  for (i = 0; i < 3; i++) {
+    for (j = 0; j < 3; j++) {
+      printf("Digite o valor da linha %d e coluna %d: ", i, j);
+      scanf("%d", &mat[i][j]);
+    }
+  }
+
+  printf("Insira a chave de busca: \n");
+  scanf("%d", &x);
+
+  for (i = 0; i < 3; i++) {
+    for (j = 0; j < 3; j++) {
+      if (mat[i][j] == x) {
+        row = i;
+        col = j;
+        found = 1;
+        break;
+      }
+    }
+  }
+
+  if (found == 1) {
+    printf("Chave encontrada na linha %d e coluna %d \n", row, col);
+  } else {
+    printf("Chave não encontrada \n");
+  }
+}
+```
+
+![Example8](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_ArraysAndLists_Exemplo8.png?raw=true)
