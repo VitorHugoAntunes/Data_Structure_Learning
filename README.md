@@ -99,6 +99,8 @@ Os estudos e implementações são realizados em diversas linguagens, incluindo:
 - Java
 - C
 
+Apesar de utilizar essas duas linguagens, o objetivo não é fazer todos os tópicos em C e em Java, pois muitos exemplos, como as pilhas e filas, são bem parecidos em questão de sintaxe, mudando poucos detalhes. As linguagens escolhidas são apenas para exemplificar e não repassar o mesmo conteúdo em ambas para evitar repetição. Apenas tópicos que são diferentes em ambas linguagens foram estudados utilizando as duas, como vetores e matrizes, que em Java temos uma abordagem diferente usando classes invólucros.
+
 ## Como Contribuir
 
 Sinta-se à vontade para contribuir com novos exemplos, correções ou sugestões. Basta seguir estas etapas:
