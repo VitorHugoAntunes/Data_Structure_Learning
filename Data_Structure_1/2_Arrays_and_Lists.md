@@ -224,7 +224,7 @@ public static void maiorElemento(){
 }
 ```
 
-![Example7](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_ArraysAndLists_Exemplo6.png?raw=true)
+![Example7](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_ArraysAndLists_Exemplo7.png?raw=true)
 
 **Exercício 2:** Desenvolva um algoritmo que preencha uma matriz numérica de dimensões 3x3. Após preencher toda a matriz, o usuário deve inserir uma chave de busca X.
 Caso exista algum número igual a X dentro da matriz, o algoritmo deve mostrar na tela, os índices da linha e da coluna da posição na qual X foi encontrado pela primeira vez. Caso contrário, o algoritmo deve se encerrar com uma única mensagem, dizendo "chave não encontrada".
