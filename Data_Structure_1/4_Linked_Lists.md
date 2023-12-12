@@ -14,6 +14,8 @@ Operações típicas de uma lista ligada ou encadeada:
 - Contar o número de elementos;
 - Adicionar elementos em determinado índice.
 
+## Lista ligada
+
 A lista encadeada contém uma propriedade chamada `head` que serve para indicar o primeiro elemento da lista, contendo os valores do elemento atual e um ponteiro `next` para o próximo elemento da lista.
 
 `Node` é uma representação de um elemento na lista, e seu papel é armazenar o valor desse elemento `data` e um ponteiro para o próximo elemento na sequência `next`.
@@ -307,3 +309,222 @@ int main() {
 ## Esclarecimentos
 
 Esta lógica pode parecer complexa, mas por a linguagem C se tratar de uma linguagem de baixo nível, devemos utilizar essas estratégias para ter um bom uso do hardware do computador e evitar problemas de eficiência e desempenho do nosso programa. Em outras linguagens como o Java, que é considerado de alto nível, esse tipo de abordagem não é necessário durante o desenvolvimento dos nosso projetos, pois a JVM (Java Virtual Machine) já trata desses problemas automaticamente, não sendo necessário alocar ou desalocar memória manualmente, como por exemplo, ao criar um `ArrayList` em Java, já se trata de uma lista encadeada que adiciona elementos dinamicamente e a própria JVM cuida do gerenciamento de memória.
+
+## Lista duplamente ligada
+
+A lista duplamente ligada funciona de forma parecida com o exemplo anterior, mas além de ter um ponteiro apontando para o próximo elemento, também contém um ponteiro que aponta para o anterior para navegação bidimensional dos elementos.
+
+Exemplo:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+// Estrutura do Nó (Node) para representar um elemento na lista duplamente
+// ligada
+typedef struct Node {
+  int data;          // Valor do elemento
+  struct Node *next; // Ponteiro para o próximo elemento na sequência
+  struct Node *prev; // Ponteiro para o elemento anterior na sequência
+} Node;
+
+// Estrutura da Lista Duplamente Ligada
+typedef struct {
+  Node *head; // Ponteiro para o primeiro nó na lista
+  Node *tail; // Ponteiro para o último nó na lista
+  int size;   // Número de elementos na lista
+} DoublyLinkedList;
+
+// Função para criar um novo nó
+Node *createNode(int data) {
+  Node *newNode = (Node *)malloc(sizeof(Node));
+  if (newNode == NULL) {
+    perror("Erro ao alocar memória para o novo nó");
+    exit(EXIT_FAILURE);
+  }
+
+  newNode->data = data;
+  newNode->next = NULL;
+  newNode->prev = NULL;
+
+  return newNode;
+}
+
+// Função para adicionar um elemento no final da lista duplamente ligada
+void append(DoublyLinkedList *list, int data) {
+  Node *newNode = createNode(data);
+
+  if (list->head == NULL) {
+    // Se a lista está vazia, o novo nó é o primeiro e o último
+    list->head = newNode;
+    list->tail = newNode;
+  } else {
+    // Adiciona o novo nó ao final da lista
+    list->tail->next = newNode;
+    newNode->prev = list->tail;
+    list->tail = newNode;
+  }
+
+  list->size++;
+}
+
+// Função para adicionar um elemento no início da lista duplamente ligada
+void prepend(DoublyLinkedList *list, int data) {
+  Node *newNode = createNode(data);
+
+  if (list->head == NULL) {
+    // Se a lista está vazia, o novo nó é o primeiro e o último
+    list->head = newNode;
+    list->tail = newNode;
+  } else {
+    // Adiciona o novo nó no início da lista
+    newNode->next = list->head;
+    list->head->prev = newNode;
+    list->head = newNode;
+  }
+
+  list->size++;
+}
+
+void insertAt(DoublyLinkedList *list, int data, int position) {
+  if (position < 0 || position > list->size) {
+    printf("Posição inválida. A lista possui %d elementos.\n", list->size);
+    return;
+  }
+
+  // Cria o novo nó
+  Node *newNode = createNode(data);
+
+  // Caso especial: inserção no início
+  if (position == 0) {
+    prepend(list, data);
+    return;
+  }
+
+  // Caso especial: inserção no final
+  if (position == list->size) {
+    append(list, data);
+    return;
+  }
+
+  // Percorre a lista até a posição desejada
+  Node *current = list->head;
+  for (int i = 0; i < position - 1; i++) {
+    current = current->next;
+  }
+
+  // Atualiza os ponteiros do novo nó
+  newNode->next = current->next;
+  newNode->prev = current;
+
+  // Atualiza os ponteiros dos nós ao redor do novo nó
+  current->next->prev = newNode;
+  current->next = newNode;
+
+  list->size++;
+}
+
+// Função para imprimir a lista duplamente ligada
+void printList(DoublyLinkedList *list) {
+  Node *current = list->head;
+
+  printf("Lista Duplamente Ligada:\n");
+  while (current != NULL) {
+    printf("%d -> ", current->data);
+    current = current->next;
+  }
+  printf("NULL\n");
+}
+
+int main() {
+  DoublyLinkedList myList = {NULL, NULL, 0};
+
+  // Adiciona alguns elementos à lista (ao final)
+  append(&myList, 10);
+  append(&myList, 20);
+  append(&myList, 30);
+
+  // Imprime a lista
+  printList(&myList);
+
+  // Adiciona um elemento no início da lista
+  prepend(&myList, 5);
+  
+  // Insere um elemento na posição 2
+  insertAt(&myList, 15, 2);
+
+  // Imprime a lista novamente
+  printList(&myList);
+
+  return 0;
+}
+```
+
+As principais diferenças é que além do rastreio do elemento anterior, também podemos inserir no meio da lista atualizando tanto o anterior quanto o próximo na mesma operação.
+
+**Função adicionar ao começo:**
+
+```c
+void prepend(DoublyLinkedList *list, int data) {
+  Node *newNode = createNode(data);
+
+  if (list->head == NULL) {
+    // Se a lista está vazia, o novo nó é o primeiro e o último
+    list->head = newNode;
+    list->tail = newNode;
+  } else {
+    // Adiciona o novo nó no início da lista
+    newNode->next = list->head;
+    list->head->prev = newNode;
+    list->head = newNode;
+  }
+
+  list->size++;
+}
+```
+
+Aqui adicionamos ao início da lista, verificando se a lista já contém elementos, do contrário ele é o primeiro da lista e último ao mesmo tempo, se não, pegamos o anterior e adicionamos nosso novo valor.
+
+**Função adicionar ao meio da lista:**
+
+```c
+void insertAt(DoublyLinkedList *list, int data, int position) {
+  if (position < 0 || position > list->size) {
+    printf("Posição inválida. A lista possui %d elementos.\n", list->size);
+    return;
+  }
+
+  // Cria o novo nó
+  Node *newNode = createNode(data);
+
+  // Caso especial: inserção no início
+  if (position == 0) {
+    prepend(list, data);
+    return;
+  }
+
+  // Caso especial: inserção no final
+  if (position == list->size) {
+    append(list, data);
+    return;
+  }
+
+  // Percorre a lista até a posição desejada
+  Node *current = list->head;
+  for (int i = 0; i < position - 1; i++) {
+    current = current->next;
+  }
+
+  // Atualiza os ponteiros do novo nó
+  newNode->next = current->next;
+  newNode->prev = current;
+
+  // Atualiza os ponteiros dos nós ao redor do novo nó
+  current->next->prev = newNode;
+  current->next = newNode;
+
+  list->size++;
+}
+```
+
+Primeiro criamos o nó desejado e usamos as outras funções já criadas caso a posição seja a primeira ou a última da lista, demais valores de posição atualizam os ponteiros tanto do atual, como também do anterior e do próximo de maneira que ambos continuem apontando um para o outro sem quebrar a lista.
