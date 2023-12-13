@@ -528,3 +528,20 @@ void insertAt(DoublyLinkedList *list, int data, int position) {
 ```
 
 Primeiro criamos o nó desejado e usamos as outras funções já criadas caso a posição seja a primeira ou a última da lista, demais valores de posição atualizam os ponteiros tanto do atual, como também do anterior e do próximo de maneira que ambos continuem apontando um para o outro sem quebrar a lista.
+
+Resultado:
+
+![Example2](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_LinkedLists_Exemplo2.png?raw=true)
+
+
+## Exemplos de contexto de uso:
+
+### Em que as listas ligadas são utilizadas?
+
+- **Gerenciamento de Memória Dinâmica:** Listas ligadas são amplamente utilizadas em linguagens de programação para alocar e desalocar memória dinamicamente. Elas oferecem flexibilidade ao acomodar dados de tamanhos variáveis durante a execução do programa.
+
+- **Implementação de Estruturas de Dados Avançadas:** Listas ligadas são a base para outras estruturas de dados, como pilhas, filas, e árvores. Elas facilitam a construção de estruturas dinâmicas que podem ser adaptadas conforme necessário.
+
+### Em que as listas duplamente ligadas são utilizadas?
+
+- **Implementação de Editores de Texto e Documentos:** Em editores de texto, as listas duplamente ligadas podem ser usadas para representar o conteúdo do documento, permitindo operações eficientes de inserção e remoção de texto em qualquer ponto do documento.
