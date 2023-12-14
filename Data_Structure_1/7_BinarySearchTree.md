@@ -204,3 +204,14 @@ int main() {
   } while (op != 0);
 }
 ```
+
+## Exemplos de contexto de uso:
+
+### No que as árvores binárias de busca são utilizadas?
+
+1. **Mapas e Conjuntos Eficientes:**
+    - Implementações de mapas e conjuntos frequentemente usam BSTs para fornecer operações eficientes de busca, inserção e remoção de elementos.
+2. **Dicionários e Corretores Ortográficos:**
+    - Em dicionários e corretores ortográficos, são empregadas para armazenar e recuperar rapidamente palavras, proporcionando uma busca eficiente em ordem alfabética.
+3. **Agendamento de Eventos:**
+    - Em sistemas de tempo real, como sistemas operacionais de tempo real ou jogos, podem ser usadas para agendar eventos em ordem de tempo, facilitando a execução de tarefas em momentos específicos.

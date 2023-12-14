@@ -101,3 +101,14 @@ Resultado:
 Esta implementação usa como estratégia um recurso importante chamando recursividade, quando uma função ou código invoca ele mesmo dentro de sua execução formando um loop para se aprofundar na estrutura até o ponto de pausa (geralmente o final), que neste exemplo é quando não se tem mais nós.
 
 **Veremos mais sobre recursividade no capítulo seguinte.**
+
+## Exemplos de contexto de uso:
+
+### No que as árvores binárias são utilizadas?
+
+1. **Expressões Aritméticas e Árvores de Análise Sintática:**
+    - Árvores binárias são usadas para representar a estrutura sintática de expressões matemáticas, facilitando a avaliação e a manipulação dessas expressões em compiladores e interpretadores.
+2. **Árvores de Decisão:**
+    - Em algoritmos de aprendizado de máquina, árvores binárias são utilizadas como estruturas para tomada de decisões hierárquicas em conjuntos de dados, especialmente em problemas de classificação.
+3. **Sistemas de Arquivos:**
+    - Alguns sistemas de arquivos utilizam árvores binárias para organizar e indexar os dados de maneira eficiente, facilitando operações como busca e recuperação de arquivos.
