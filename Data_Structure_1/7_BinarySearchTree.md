@@ -184,7 +184,7 @@ int main() {
       printf("\nSaindo...\n");
       break;
     case 1:
-      printf("Digte um valor: ");
+      printf("Digite um valor: ");
       scanf("%d", &valor);
       inserir(&arv, valor);
       break;
@@ -195,7 +195,7 @@ int main() {
              tamanho(arv.raiz));
       break;
     case 3:
-      printf("Digte um valor para buscar na arvore binaria: ");
+      printf("Digite um valor para buscar na arvore binaria: ");
       scanf("%d", &valor);
       printf("Valor encontrado: %d", buscarElemento(arv.raiz, valor));
     default:
@@ -204,6 +204,98 @@ int main() {
   } while (op != 0);
 }
 ```
+
+### Mas como funcionaria a remoção de um elemento da árvore binária?
+
+A lógica para remover um elemento necessita ficar atento em 3 detalhes importantes:
+
+- Remover um nó folha (nó sem filhos);
+- Remover um nó que contém apenas um filho;
+- Remover um nó que contém dois filhos.
+
+Segue abaixo bloco de código com esta lógica. As explicações do fluxo estão como comentários no código:
+
+```c
+No* remover(No* raiz, int chave) {
+  // Verifica se a raiz é nula (árvore vazia)
+  if (raiz == NULL) {
+    printf("Valor não encontrado!\n");
+    return NULL;
+  } else {
+    // Verifica se a chave a ser removida está na raiz atual
+    if (raiz->conteudo == chave) {
+      // Remove nós folhas (nós sem filhos)
+      if (raiz->esquerda == NULL && raiz->direita == NULL) {
+        free(raiz);
+        return NULL;
+      } else {
+        // Remove nós que possuem apenas 1 filho
+        if (raiz->esquerda == NULL || raiz->direita == NULL) {
+          No* aux;
+
+          // Escolhe o filho existente como o novo nó
+          if (raiz->esquerda != NULL)
+            aux = raiz->esquerda;
+          else
+            aux = raiz->direita;
+
+          free(raiz);
+          return aux;
+        } else {
+          // Remove nós que possuem 2 filhos
+          No* aux = raiz->esquerda;
+
+          // Encontra o nó mais à direita na subárvore esquerda
+          while (aux->direita != NULL) {
+            aux = aux->direita;
+          }
+
+          // Troca os valores entre o nó atual e o nó mais à direita
+          raiz->conteudo = aux->conteudo;
+          aux->conteudo = chave;
+
+          // Recursivamente remove o valor trocado na subárvore esquerda
+          raiz->esquerda = remover(raiz->esquerda, chave);
+          return raiz;
+        }
+      }
+    } else {
+      // A chave a ser removida não está na raiz, então continua a busca recursiva
+      if (chave < raiz->conteudo) {
+        raiz->esquerda = remover(raiz->esquerda, chave);
+      } else {
+        raiz->direita = remover(raiz->direita, chave);
+      }
+      return raiz;
+    }
+  }
+}
+
+// dentro da função main adicionar ao menu:
+//...
+case 4:
+      printf("Digite um valor a ser removido: ");
+      scanf("%d", &valor);
+      remover(arv.raiz, valor);
+      break;
+//...
+```
+
+Resultado:
+
+![Example2](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_BinarySearchTree_Exemplo2.png?raw=true)
+
+Nesta implementação, se um nó a ser removido tem dois filhos, encontra-se o nó mais à direita na subárvore esquerda e trocando os valores entre esse nó e o nó a ser removido. Em seguida, se faz uma chamada recursiva para remover o valor trocado na subárvore esquerda.
+
+Essa abordagem é conhecida como substituição por predecessor (ou por sucessor, dependendo da escolha do nó a ser trocado), e é uma maneira eficiente de manter a ordem na árvore binária durante a remoção.
+
+Há outras maneiras mais eficientes, como a exclusão por fusão, que se resume em remover o nó a ser excluído e depois funde as subárvores esquerda e direita desse nó em uma única subárvore.
+
+Apesar do código acima parecer verboso, é uma maneira mais didática de como entender o fluxo de manipulação de ponteiros dentro de uma árvore binária.
+
+Também há outros tipos de estratégias, como a remoção em cascata, que remove os filhos do nó excluído sucessivamente, como funciona quando você apaga um diretório que contém arquivos dentro.
+
+
 
 ## Exemplos de contexto de uso:
 
