@@ -20,6 +20,10 @@ typedef struct {
   No *raiz;
 } ArvoreBinaria;
 
+// Necessário adicionar protótipos das funções para evitar erros de compilação por chamadas cruzadas
+void inserirEsquerda(No *no, int valor);
+void inserirDireita(No *no, int valor);
+
 // Função para inserir um valor na subárvore esquerda de um nó
 void inserirEsquerda(No *no, int valor) {
   if (no->esquerda == NULL) {
