@@ -220,68 +220,61 @@ A lógica para remover um elemento necessita ficar atento em 3 detalhes importan
 Segue abaixo bloco de código com esta lógica. As explicações do fluxo estão como comentários no código:
 
 ```c
-No* remover(No* raiz, int chave) {
-  // Verifica se a raiz é nula (árvore vazia)
-  if (raiz == NULL) {
-    printf("Valor não encontrado!\n");
-    return NULL;
-  } else {
-    // Verifica se a chave a ser removida está na raiz atual
-    if (raiz->conteudo == chave) {
-      // Remove nós folhas (nós sem filhos)
-      if (raiz->esquerda == NULL && raiz->direita == NULL) {
-        free(raiz);
-        return NULL;
-      } else {
-        // Remove nós que possuem apenas 1 filho
-        if (raiz->esquerda == NULL || raiz->direita == NULL) {
-          No* aux;
+// Função para buscar o menor valor na subárvore direita
+No *obterSucessor(No *atual) {
+  atual = atual->direita;
+  while (atual != NULL && atual->esquerda != NULL)
+    atual = atual->esquerda;
+  return atual;
+}
 
-          // Escolhe o filho existente como o novo nó
-          if (raiz->esquerda != NULL)
-            aux = raiz->esquerda;
-          else
-            aux = raiz->direita;
+No *remover(No *raiz, int chave) {
 
-          free(raiz);
-          return aux;
-        } else {
-          // Remove nós que possuem 2 filhos
-          No* aux = raiz->esquerda;
+  // Se a raiz for vazia
+  if (raiz == NULL)
+    return raiz;
 
-          // Encontra o nó mais à direita na subárvore esquerda
-          while (aux->direita != NULL) {
-            aux = aux->direita;
-          }
+  // Busca a chave na subárvore corretamente
+  if (raiz->conteudo > chave)
+    raiz->esquerda = remover(raiz->esquerda, chave); // Procura na subárvore esquerda
+  else if (raiz->conteudo < chave)
+    raiz->direita = remover(raiz->direita, chave); // Procura na subárvore direita
+  else {
+    // Encontrou o nó com a chave a ser removida
 
-          // Troca os valores entre o nó atual e o nó mais à direita
-          raiz->conteudo = aux->conteudo;
-          aux->conteudo = chave;
-
-          // Recursivamente remove o valor trocado na subárvore esquerda
-          raiz->esquerda = remover(raiz->esquerda, chave);
-          return raiz;
-        }
-      }
-    } else {
-      // A chave a ser removida não está na raiz, então continua a busca recursiva
-      if (chave < raiz->conteudo) {
-        raiz->esquerda = remover(raiz->esquerda, chave);
-      } else {
-        raiz->direita = remover(raiz->direita, chave);
-      }
-      return raiz;
+    // Caso 1: o nó não tem filhos ou tem apenas o filho direito
+    if (raiz->esquerda == NULL) {
+      No *temp = raiz->direita;
+      free(raiz);
+      return temp;
     }
+
+    // Caso 2: o nó tem apenas o filho esquerdo
+    if (raiz->direita == NULL) {
+      No *temp = raiz->esquerda; // Armazena o filho direito
+      free(raiz); // Libera a memória do nó atual
+      return temp; // Retorna o filho direito (pode ser NULL)
+    }
+
+    // Caso 3: o nó tem ambos os filhos
+    No *sucessor = obterSucessor(raiz);
+    raiz->conteudo = sucessor->conteudo;
+    raiz->direita = remover(raiz->direita, sucessor->conteudo);
   }
+  return raiz;
 }
 
 // dentro da função main adicionar ao menu:
+
+// Menu de opções
+  printf("\n0 - Sair\n1 - Inserir\n2 - Imprimir\n3 - Buscar\n4 - Remover\n5 - Tamanho\n");
+
 //...
 case 4:
-      printf("Digite um valor a ser removido: ");
-      scanf("%d", &valor);
-      remover(arv.raiz, valor);
-      break;
+  printf("Digite um valor a ser removido: ");
+  scanf("%d", &valor);
+  arv.raiz = remover(arv.raiz, valor);
+  break;
 //...
 ```
 
@@ -289,9 +282,9 @@ Resultado:
 
 ![Example2](https://github.com/VitorHugoAntunes/Data_Structure_Learning/blob/main/Assets/DS1_BinarySearchTree_Exemplo2.png?raw=true)
 
-Nesta implementação, se um nó a ser removido tem dois filhos, encontra-se o nó mais à direita na subárvore esquerda e trocando os valores entre esse nó e o nó a ser removido. Em seguida, se faz uma chamada recursiva para remover o valor trocado na subárvore esquerda.
+Nesta implementação, se um nó a ser removido tem dois filhos, encontra-se o menor nó na subárvore direita que não possui filho esquerdo (sucessor in-order) e troca-se o valor entre esse nó e o nó a ser removido. Em seguida, realiza-se uma chamada recursiva para remover o sucessor na subárvore direita.
 
-Essa abordagem é conhecida como substituição por predecessor (ou por sucessor, dependendo da escolha do nó a ser trocado), e é uma maneira eficiente de manter a ordem na árvore binária durante a remoção.
+Essa abordagem é conhecida como substituição pelo sucessor in-order e é uma maneira eficiente de manter a ordem na árvore binária durante a remoção.
 
 Há outras maneiras mais eficientes, como a exclusão por fusão, que se resume em remover o nó a ser excluído e depois funde as subárvores esquerda e direita desse nó em uma única subárvore.
 
